@@ -42,7 +42,7 @@ function App() {
     setTokensInfo((prevState) => [...prevState, data.result]);
   };
 
-  const handlerMint = async () => {
+  const handlerClaim = async () => {
     // console.log(contract?.current?.methods?.mint())
     console.log(accounts)
     await contract?.current?.methods?.claim(accounts[0]);
@@ -56,7 +56,7 @@ function App() {
       <button onClick={() => handlerMint()}>
         Click here if you are the owner and want to mint a new card
       </button>
-      <button onClick={() => handlerMint()}>
+      <button onClick={() => handlerClaim()}>
         Click here if you are a guest and want to mint a new card
       </button>
       {tokensInfo &&
