@@ -6,7 +6,6 @@ function App() {
   const [tokensInfo, setTokensInfo] = useState([]);
   const [accounts, setAccounts] = useState();
   const contract = useRef();
-  console.log(contract?.current?.methods?.tokenURI(0).arguments[0]);
 
   // const handlerMint = async () => {
   //   const tokenURI = await nft.tokenURI(0);
@@ -28,36 +27,39 @@ function App() {
         from: accounts[0],
       });
       const tokenUri = await contract?.current?.methods?.tokenURI(0);
-      console.log(tokenUri);
     };
 
     init();
   }, []);
   const handlerMint = async () => {
     console.log(accounts);
-    // console.log(contract?.current?.methods?.mint())
+
     await contract?.current?.methods?.mint(accounts[0]);
-    const tokenURI = await contract?.current?.methods?.tokenURI(0).call();
+    const tokenURI = await contract?.current?.methods
+      ?.tokenURI(tokensInfo.length)
+      .call();
     const { data } = await axios.get(tokenURI);
     setTokensInfo((prevState) => [...prevState, data.result]);
   };
 
   const handlerClaim = async () => {
-    // console.log(contract?.current?.methods?.mint())
-    console.log(accounts)
+    console.log(accounts);
     await contract?.current?.methods?.claim(accounts[0]);
-    const tokenURI = await contract?.current?.methods?.tokenURI(0).call();
+    const tokenURI = await contract?.current?.methods
+      ?.tokenURI(tokensInfo.length)
+      .call();
     const { data } = await axios.get(tokenURI);
     setTokensInfo((prevState) => [...prevState, data.result]);
   };
 
   return (
     <div className="container">
+
       <button onClick={() => handlerMint()}>
         Click here if you are the owner and want to mint a new card
       </button>
       <button onClick={() => handlerClaim()}>
-        Click here if you are a guest and want to mint a new card
+        Click here if you are a guest and want to claim a new card
       </button>
       {tokensInfo &&
         tokensInfo.map((tokenInfo) => {
