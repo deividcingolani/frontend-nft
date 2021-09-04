@@ -42,6 +42,15 @@ function App() {
     setTokensInfo((prevState) => [...prevState, data.result]);
   };
 
+  const handlerMint = async () => {
+    // console.log(contract?.current?.methods?.mint())
+    console.log(accounts)
+    await contract?.current?.methods?.claim(accounts[0]);
+    const tokenURI = await contract?.current?.methods?.tokenURI(0).call();
+    const { data } = await axios.get(tokenURI);
+    setTokensInfo((prevState) => [...prevState, data.result]);
+  };
+
   return (
     <div className="container">
       <button onClick={() => handlerMint()}>
