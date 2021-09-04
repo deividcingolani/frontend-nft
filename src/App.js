@@ -34,7 +34,7 @@ function App() {
   const handlerMint = async () => {
     console.log(accounts);
 
-    await contract?.current?.methods?.mint(accounts[0]);
+    await contract?.current?.methods?.mint(accounts[0]).call();
     const tokenURI = await contract?.current?.methods
       ?.tokenURI(tokensInfo.length)
       .call();
@@ -55,11 +55,8 @@ function App() {
   return (
     <div className="container">
 
-      <button onClick={() => handlerMint()}>
-        Click here if you are the owner and want to mint a new card
-      </button>
       <button onClick={() => handlerClaim()}>
-        Click here if you are a guest and want to claim a new card
+        Click here if you want to claim a card
       </button>
       {tokensInfo &&
         tokensInfo.map((tokenInfo) => {
