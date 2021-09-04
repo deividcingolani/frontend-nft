@@ -45,7 +45,10 @@ function App() {
   return (
     <div className="container">
       <button onClick={() => handlerMint()}>
-        Click here if you want to mint a new card
+        Click here if you are the owner and want to mint a new card
+      </button>
+      <button onClick={() => handlerMint()}>
+        Click here if you are a guest and want to mint a new card
       </button>
       {tokensInfo &&
         tokensInfo.map((tokenInfo) => {
